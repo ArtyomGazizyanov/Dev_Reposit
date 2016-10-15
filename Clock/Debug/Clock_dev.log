@@ -1,0 +1,2 @@
+﻿  clock.cpp
+c:\program boss\game-develope\clock_dev\clock.cpp(8): fatal error C1083: Не удается открыть файл включение: SFML/Graphics.hpp: No such file or directory

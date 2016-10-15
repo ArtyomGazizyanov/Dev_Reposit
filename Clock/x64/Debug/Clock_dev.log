@@ -1,0 +1,11 @@
+﻿  clock.cpp
+c:\program boss\game-develope\clock_dev\consts.h(3): warning C4305: инициализация: усечение из "double" к "float"
+c:\program boss\game-develope\clock_dev\clock.cpp(114): warning C4244: аргумент: преобразование "const int" в "float", возможна потеря данных
+c:\program boss\game-develope\clock_dev\clock.cpp(116): warning C4244: аргумент: преобразование "const int" в "float", возможна потеря данных
+c:\program boss\game-develope\clock_dev\clock.cpp(126): warning C4244: аргумент: преобразование "const int" в "float", возможна потеря данных
+c:\program boss\game-develope\clock_dev\clock.cpp(175): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\program boss\game-develope\clock_dev\clock.cpp(176): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\program boss\game-develope\clock_dev\clock.cpp(177): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\program boss\game-develope\clock_dev\clock.cpp(173): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\time.h(505): note:  см. объявление "localtime"
+  Clock_dev.vcxproj -> C:\Program boss\game-develope\Clock_dev\x64\Debug\Clock_dev.exe
