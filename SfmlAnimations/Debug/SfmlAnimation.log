@@ -1,0 +1,41 @@
+﻿  main.cpp
+c:\program boss\game-develope\sfmlanimation\sfmlanimation\consts.h(19): warning C4305: инициализация: усечение из "double" к "float"
+c:\program boss\game-develope\sfmlanimation\sfmlanimation\consts.h(20): warning C4305: инициализация: усечение из "double" к "float"
+c:\program boss\game-develope\sfmlanimation\sfmlanimation\consts.h(22): warning C4305: инициализация: усечение из "double" к "float"
+c:\program boss\game-develope\sfmlanimation\sfmlanimation\consts.h(23): warning C4305: инициализация: усечение из "double" к "float"
+c:\program boss\game-develope\sfmlanimation\sfmlanimation\main.cpp(19): warning C4244: аргумент: преобразование "const unsigned int" в "float", возможна потеря данных
+c:\c programs\visual studio\vc\include\utility(175): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+  c:\program boss\game-develope\sfmlanimation\sfmlanimation\animations.h(80): note: см. ссылку на создание экземпляров функции шаблон при компиляции "std::pair<const _Kty,_Ty>::pair<const char(&)[2],int,void,0>(_Other1,_Other2 &&) noexcept(false)"
+          with
+          [
+              _Kty=std::string,
+              _Ty=float,
+              _Other1=const char (&)[2],
+              _Other2=int
+          ]
+  c:\program boss\game-develope\sfmlanimation\sfmlanimation\animations.h(9): note: см. ссылку на создание экземпляров функции шаблон при компиляции "std::pair<const _Kty,_Ty>::pair<const char(&)[2],int,void,0>(_Other1,_Other2 &&) noexcept(false)"
+          with
+          [
+              _Kty=std::string,
+              _Ty=float,
+              _Other1=const char (&)[2],
+              _Other2=int
+          ]
+c:\c programs\visual studio\vc\include\utility(175): warning C4244: инициализация: преобразование "const unsigned int" в "float", возможна потеря данных
+  c:\program boss\game-develope\sfmlanimation\sfmlanimation\animations.h(80): note: см. ссылку на создание экземпляров функции шаблон при компиляции "std::pair<const _Kty,_Ty>::pair<const char(&)[3],const unsigned int&,void,0>(_Other1,_Other2) noexcept(false)"
+          with
+          [
+              _Kty=std::string,
+              _Ty=float,
+              _Other1=const char (&)[3],
+              _Other2=const unsigned int &
+          ]
+  c:\program boss\game-develope\sfmlanimation\sfmlanimation\animations.h(9): note: см. ссылку на создание экземпляров функции шаблон при компиляции "std::pair<const _Kty,_Ty>::pair<const char(&)[3],const unsigned int&,void,0>(_Other1,_Other2) noexcept(false)"
+          with
+          [
+              _Kty=std::string,
+              _Ty=float,
+              _Other1=const char (&)[3],
+              _Other2=const unsigned int &
+          ]
+sfml-graphics-d.lib(sfml-graphics-d-2.dll) : fatal error LNK1112: тип компьютера модуля "x64" противоречит типу целевого компьютера "X86"
