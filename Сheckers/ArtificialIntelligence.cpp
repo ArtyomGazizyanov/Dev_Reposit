@@ -1,8 +1,8 @@
 #include "Header.h"
   
-void AI_makesMove(BoardStruct &board, bool &isWhitePlayerTurn, bool doPlayGamer)
+void AI_makesMove(BoardStruct &board, bool &isWhitePlayerTurn, bool isHumanAgainstHuman)
 {
-	if (!doPlayGamer && !isWhitePlayerTurn)
+	if (!isHumanAgainstHuman && !isWhitePlayerTurn)
 	{
 		CheckAllWays_AI(board);
 		isWhitePlayerTurn = true;

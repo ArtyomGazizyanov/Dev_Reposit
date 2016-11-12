@@ -16,4 +16,3 @@
 #include "ArtificialIntelligence.h"
 #include "GameLoop.h" 
  
-//using namespace sf; 

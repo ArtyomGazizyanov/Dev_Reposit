@@ -93,3 +93,35 @@ void DrawDeck(BoardStruct &board, sf::RenderWindow& window)
 			window.draw(board.cells[i].checker.shape);
 	}
 }
+
+void DrawChoosenChecker(BoardStruct board, sf::RenderWindow &window, bool const &isMove, int const &whichCheckerCanMove)
+{
+	if (isMove) // отрисовка выбранной шашки поверх всех остальных
+	{
+		window.draw(board.cells[whichCheckerCanMove].checker.shape);
+	}
+}
+
+void ProcessingWinning(sf::RenderWindow &window, BoardStruct &board, bool &isWhitePlayerWin, bool &gameover, bool &isWhitePlayerTurn)
+{
+	if (board.amountOfBlackCheckers <= 0 || board.amountOfWhiteCheckers <= 0)
+	{
+		gameover = true;
+		DrawCongratulationsText(window, isWhitePlayerWin);
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			EventWindowClosed(event, window);
+			if (event.type == sf::Event::MouseButtonReleased)
+			{
+				ClearBoard(board);
+				BuildBackground(board);
+				SetOriginCheckers(board);
+				board.amountOfBlackCheckers = 12;
+				board.amountOfWhiteCheckers = 12;
+				gameover = false;
+				isWhitePlayerTurn = true;
+			}
+		}
+	}
+}

@@ -1,3 +1,3 @@
 #pragma once
 
-void GameLoop(sf::RenderWindow &window, BoardStruct &m_board, bool &doPlayGamer);
+void GameLoop(sf::RenderWindow &window, BoardStruct &m_board, bool &isHumanAgainstHuman);

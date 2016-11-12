@@ -75,6 +75,7 @@ void QueenCalculateDiagonal_TopRight(BoardStruct &board, int whichChecker, int s
 			else
 				if (choosenDiagonal == 2 && (!board.cells[whichChecker].isEmpty || possibleWays[possibleWays.size() - 1].isKiller))
 				{
+
 					topRightChecker.isKiller = true;
 					possibleWays.push_back(topRightChecker);
 					QueenCalculateDiagonal_TopRight(board, topRightChecker.CheckerNum, startChecker, choosenDiagonal, possibleWays);

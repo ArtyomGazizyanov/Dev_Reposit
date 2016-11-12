@@ -1,44 +1,6 @@
 #include "Header.h" 
  
- 
-void CheckChampion(BoardStruct &board, bool &isWhitePlayerWin)
-{
-	if (board.amountOfBlackCheckers == 0)
-	{
-		isWhitePlayerWin = true;
-	}
-	else
-		if (board.amountOfWhiteCheckers == 0)
-		{
-			isWhitePlayerWin = false;
-		}
-}
-
-void ProcessingWinning(sf::RenderWindow &window, BoardStruct &board, bool &isWhitePlayerWin, bool &gameover, bool &isWhitePlayerTurn)
-{ 
-	if (board.amountOfBlackCheckers <= 0 || board.amountOfWhiteCheckers <= 0)
-	{
-		gameover = true;
-		DrawCongratulationsText(window, isWhitePlayerWin);
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			EventWindowClosed(event, window);
-			if (event.type == sf::Event::MouseButtonReleased)
-			{
-				ClearBoard(board);
-				BuildBackground(board);
-				SetOriginCheckers(board);
-				board.amountOfBlackCheckers = 12;
-				board.amountOfWhiteCheckers = 12;
-				gameover = false;
-				isWhitePlayerTurn = true;
-			}
-		}
-	}
-}
-
-void GameLoop(sf::RenderWindow &window, BoardStruct &m_board, bool &doPlayGamer)// bool doPlayGamer)
+void GameLoop(sf::RenderWindow &window, BoardStruct &m_board, bool &isHumanAgainstHuman)// bool isHumanAgainstHuman)
 {
 	bool isMove = false;
 	bool gameover = false;
@@ -50,6 +12,7 @@ void GameLoop(sf::RenderWindow &window, BoardStruct &m_board, bool &doPlayGamer)
 	sf::Vector2f XYMouseMove(0, 0);
 	int whichCheckerCanMove = 0;
 	int killingChecker = 0;
+
 	while (window.isOpen())
 	{
 		// сделать условие проверки кол-ва шашек или whie no gameover
@@ -68,17 +31,14 @@ void GameLoop(sf::RenderWindow &window, BoardStruct &m_board, bool &doPlayGamer)
 					{
 						isMove = isCheckerMoving(m_board, whichCheckerCanMove, white, killingChecker, positionOfCursor, possibleWays, deltaPosition);
 					}
-					else
+					else if (isHumanAgainstHuman)
 					{
-						if (doPlayGamer)
-						{
-							isMove = isCheckerMoving(m_board, whichCheckerCanMove, black, killingChecker, positionOfCursor, possibleWays, deltaPosition);
-						}
-					}
+						isMove = isCheckerMoving(m_board, whichCheckerCanMove, black, killingChecker, positionOfCursor, possibleWays, deltaPosition);
+					}					
 				}
-				MouseUpEvent(event, m_board, whichCheckerCanMove, isWhitePlayerTurn, doPlayGamer, isMove, isSetChecker);
+				MouseUpEvent(event, m_board, whichCheckerCanMove, isWhitePlayerTurn, isHumanAgainstHuman, isMove, isSetChecker);
 			}
-			AI_makesMove(m_board, isWhitePlayerTurn, doPlayGamer);
+			AI_makesMove(m_board, isWhitePlayerTurn, isHumanAgainstHuman);
 			CheckerFollowCursor(isMove, m_board, whichCheckerCanMove, positionOfCursor, deltaPosition);
 
 			if (isSetChecker)
@@ -88,6 +48,7 @@ void GameLoop(sf::RenderWindow &window, BoardStruct &m_board, bool &doPlayGamer)
 		}
 		DrawDeck(m_board, window);
 		DrawText(window, isWhitePlayerTurn);
+		DrawChoosenChecker(m_board, window, isMove, whichCheckerCanMove);
 		if (isMove) // отрисовка выбранной шашки поверх всех остальных
 		{
 			window.draw(m_board.cells[whichCheckerCanMove].checker.shape);

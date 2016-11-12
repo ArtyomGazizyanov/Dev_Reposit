@@ -13,13 +13,13 @@ sf::Text SetWhichTurnText(sf::Font &font, bool isWhitePlayerTurn)
 	if (isWhitePlayerTurn)
 	{
 		whichTurnText.setString("White player"); 
-		whichTurnText.setColor(sf::Color::White);
+		whichTurnText.setFillColor(sf::Color::White);
 		whichTurnText.setOutlineColor(sf::Color::Black);
 	}
 	else
 	{
 		whichTurnText.setString("Black player"); 
-		whichTurnText.setColor(sf::Color::Black);
+		whichTurnText.setFillColor(sf::Color::Black);
 		whichTurnText.setOutlineColor(sf::Color::White);
 	} 
 	whichTurnText.setStyle(sf::Text::Bold | sf::Text::Underlined);
@@ -34,13 +34,13 @@ sf::Text SetCongratulationsText(sf::Font &font, bool isWhitePlayerWin)
 	if (isWhitePlayerWin)
 	{
 		CongratulationsText.setString("White player WIN!");
-		CongratulationsText.setColor(sf::Color::White);
+		CongratulationsText.setFillColor(sf::Color::White);
 		CongratulationsText.setOutlineColor(sf::Color::Black);
 	}
 	else
 	{
 		CongratulationsText.setString("Black player WIN!");
-		CongratulationsText.setColor(sf::Color::Black);
+		CongratulationsText.setFillColor(sf::Color::Black);
 		CongratulationsText.setOutlineColor(sf::Color::White);
 	}
 	CongratulationsText.setStyle(sf::Text::Bold);
@@ -65,14 +65,14 @@ void DrawText(sf::RenderWindow &window, bool isWhitePlayerTurn)
 {
 	sf::Font font = InitFont();
 	sf::Text WhichTurnText = SetWhichTurnText(font, isWhitePlayerTurn);
-	WhichTurnText.setPosition(SCREEN_WIDTH- 200, SCREEN_HEIGHT - 450);//задаем позицию текста, отступая от центра камеры
-	window.draw(WhichTurnText);//рисую этот текст 
+	WhichTurnText.setPosition(SCREEN_WIDTH- 200, SCREEN_HEIGHT - 450); 
+	window.draw(WhichTurnText); 
 }
 
 sf::Text SetTitle(sf::Font &font)
 { 
 	sf::Text gameTitle("checkers", font, 55);
-	gameTitle.setColor(sf::Color::Black);
+	gameTitle.setFillColor(sf::Color::Black);
 	gameTitle.setOutlineColor(sf::Color::Red);
 	gameTitle.setPosition(SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 250);
 	return gameTitle;
@@ -81,7 +81,7 @@ sf::Text SetTitle(sf::Font &font)
 sf::Text Set2PlayersItem(sf::Font &font)
 {
 	sf::Text gameTitle("2 players", font, 50);
-	gameTitle.setColor(sf::Color::Black);
+	gameTitle.setFillColor(sf::Color::Black);
 	gameTitle.setOutlineColor(sf::Color::Red);
 	gameTitle.setPosition(SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 50);
 	return gameTitle;
@@ -111,7 +111,7 @@ sf::RectangleShape SetVsIAItemFrame()
 sf::Text SetVsIAItem(sf::Font &font)
 {
 	sf::Text gameTitle("vs. computer", font, 50);
-	gameTitle.setColor(sf::Color::Black);
+	gameTitle.setFillColor(sf::Color::Black);
 	gameTitle.setOutlineColor(sf::Color::Red);
 	gameTitle.setPosition(SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 2 + 50);
 	return gameTitle;
@@ -130,7 +130,7 @@ sf::RectangleShape SetExitItemFrame()
 sf::Text SetExitItem(sf::Font &font)
 {
 	sf::Text gameTitle("exit", font, 50);
-	gameTitle.setColor(sf::Color::Black);
+	gameTitle.setFillColor(sf::Color::Black);
 	gameTitle.setOutlineColor(sf::Color::Red);
 	gameTitle.setPosition(SCREEN_WIDTH / 2 - 30, SCREEN_HEIGHT / 2 + 150);
 	return gameTitle;

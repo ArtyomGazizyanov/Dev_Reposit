@@ -6,42 +6,42 @@ void EventWindowClosed(sf::Event event, sf::RenderWindow &window)
 		window.close();
 }
  
-void MouseUpEvent(sf::Event event, BoardStruct &board, int whichCheckerCanMove, bool isWhitePlayerTurn, bool doPlayGamer, bool &isMove, bool &isSetChecker)
+void MouseUpEvent(sf::Event event, BoardStruct &board, int whichCheckerCanMove, bool isWhitePlayerTurn, bool isHumanAgainstHuman, bool &isMove, bool &isSetChecker)
 {
-	if ((event.type == sf::Event::MouseButtonReleased) && (board.cells[whichCheckerCanMove].isEnableToPlay && (isWhitePlayerTurn || doPlayGamer)))//если отпустили клавишу
+	if ((event.type == sf::Event::MouseButtonReleased) && (board.cells[whichCheckerCanMove].isEnableToPlay && (isWhitePlayerTurn || isHumanAgainstHuman)))//если отпустили клавишу
 	{ 
 		isMove = false;
 		isSetChecker = true;
 	}
 }
 
-void EventClickOnTwoPlayersMenuItem(sf::RenderWindow &window, bool &doPlayGamer, bool &isItemChoosen)
+void EventClickOnTwoPlayersMenuItem(sf::RenderWindow &window, bool &isHumanAgainstHuman, bool &isItemChoosen)
 { 
 	sf::Event event;
 	while (window.pollEvent(event))
 	{
 		if (event.type == sf::Event::MouseButtonReleased)
 		{
-			doPlayGamer = true; 
+			isHumanAgainstHuman = true; 
 			isItemChoosen = true;
 		}
 	}
 }
 
-void EventClickOnVsAIMenuItem(sf::RenderWindow &window, bool &doPlayGamer, bool &isItemChoosen)
+void EventClickOnVsAIMenuItem(sf::RenderWindow &window, bool &isHumanAgainstHuman, bool &isItemChoosen)
 {
 	sf::Event event;
 	while (window.pollEvent(event))
 	{
 		if (event.type == sf::Event::MouseButtonReleased)
 		{
-			doPlayGamer = false;
+			isHumanAgainstHuman = false;
 			isItemChoosen = true; 
 		}
 	}
 }
 
-void EventClickOnExitItem(sf::RenderWindow &window, bool &doPlayGamer, bool &isItemChoosen)
+void EventClickOnExitItem(sf::RenderWindow &window, bool &isHumanAgainstHuman, bool &isItemChoosen)
 {
 	sf::Event event;
 	while (window.pollEvent(event))
@@ -55,7 +55,7 @@ void EventClickOnExitItem(sf::RenderWindow &window, bool &doPlayGamer, bool &isI
 
 
 
-void EventFocusOnTwoPlayersMenuItem(sf::RenderWindow &window, bool &doPlayGamer, bool &isItemChoosen)
+void EventFocusOnTwoPlayersMenuItem(sf::RenderWindow &window, bool &isHumanAgainstHuman, bool &isItemChoosen)
 {
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(window);//забираем коорд курсора
 	sf::Vector2f positionOfCursor = window.mapPixelToCoords(pixelPos);//переводим их в игровые (уходим от коорд окна)  
@@ -64,7 +64,7 @@ void EventFocusOnTwoPlayersMenuItem(sf::RenderWindow &window, bool &doPlayGamer,
 	{ 
 		if (twoPlayersItemFrame.getGlobalBounds().contains(positionOfCursor.x, positionOfCursor.y))
 		{
-			EventClickOnTwoPlayersMenuItem(window, doPlayGamer, isItemChoosen);
+			EventClickOnTwoPlayersMenuItem(window, isHumanAgainstHuman, isItemChoosen);
 			window.draw(twoPlayersItemFrame);
 			window.display();
 		}
@@ -74,7 +74,7 @@ void EventFocusOnTwoPlayersMenuItem(sf::RenderWindow &window, bool &doPlayGamer,
 }
 
 
-void EventFocusOnVsAIMenuItem(sf::RenderWindow &window, bool &doPlayGamer, bool &isItemChoosen)
+void EventFocusOnVsAIMenuItem(sf::RenderWindow &window, bool &isHumanAgainstHuman, bool &isItemChoosen)
 {
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(window);//забираем коорд курсора
 	sf::Vector2f positionOfCursor = window.mapPixelToCoords(pixelPos);//переводим их в игровые (уходим от коорд окна)  
@@ -83,7 +83,7 @@ void EventFocusOnVsAIMenuItem(sf::RenderWindow &window, bool &doPlayGamer, bool 
 	{
 		if (vsAIItemFrame.getGlobalBounds().contains(positionOfCursor.x, positionOfCursor.y))
 		{
-			EventClickOnVsAIMenuItem(window, doPlayGamer, isItemChoosen);
+			EventClickOnVsAIMenuItem(window, isHumanAgainstHuman, isItemChoosen);
 			window.draw(vsAIItemFrame);
 			window.display();
 		}
@@ -92,7 +92,7 @@ void EventFocusOnVsAIMenuItem(sf::RenderWindow &window, bool &doPlayGamer, bool 
 	}
 }
 
-void EventFocusOnExitMenuItem(sf::RenderWindow &window, bool &doPlayGamer, bool &isItemChoosen)
+void EventFocusOnExitMenuItem(sf::RenderWindow &window, bool &isHumanAgainstHuman, bool &isItemChoosen)
 {
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(window);//забираем коорд курсора
 	sf::Vector2f positionOfCursor = window.mapPixelToCoords(pixelPos);//переводим их в игровые (уходим от коорд окна)  
@@ -101,7 +101,7 @@ void EventFocusOnExitMenuItem(sf::RenderWindow &window, bool &doPlayGamer, bool 
 	{
 		if (exitItemFrame.getGlobalBounds().contains(positionOfCursor.x, positionOfCursor.y))
 		{
-			EventClickOnExitItem(window, doPlayGamer, isItemChoosen);
+			EventClickOnExitItem(window, isHumanAgainstHuman, isItemChoosen);
 			window.draw(exitItemFrame);
 			window.display();
 		}
@@ -110,16 +110,16 @@ void EventFocusOnExitMenuItem(sf::RenderWindow &window, bool &doPlayGamer, bool 
 	}
 }
  
-void SetMenuEvents(sf::RenderWindow &window, bool &doPlayGamer, bool &isItemChoosen)
+void SetMenuEvents(sf::RenderWindow &window, bool &isHumanAgainstHuman, bool &isItemChoosen)
 {
 	sf::Event event;
 	while (window.pollEvent(event))
 	{
 		EventWindowClosed(event, window);
 
-		EventFocusOnTwoPlayersMenuItem(window, doPlayGamer, isItemChoosen);
-		EventFocusOnVsAIMenuItem(window, doPlayGamer, isItemChoosen);
-		EventFocusOnExitMenuItem(window, doPlayGamer, isItemChoosen);
+		EventFocusOnTwoPlayersMenuItem(window, isHumanAgainstHuman, isItemChoosen);
+		EventFocusOnVsAIMenuItem(window, isHumanAgainstHuman, isItemChoosen);
+		EventFocusOnExitMenuItem(window, isHumanAgainstHuman, isItemChoosen);
 	}
 }
 
@@ -130,4 +130,17 @@ void CheckerFollowCursor(bool isMove, BoardStruct &board, int whichCheckerCanMov
 	{
 		board.cells[whichCheckerCanMove].checker.shape.setPosition(positionOfCursor.x - deltaPosition.x, positionOfCursor.y - deltaPosition.y);
 	}
+}
+
+void CheckChampion(BoardStruct &board, bool &isWhitePlayerWin)
+{
+	if (board.amountOfBlackCheckers == 0)
+	{
+		isWhitePlayerWin = true;
+	}
+	else
+		if (board.amountOfWhiteCheckers == 0)
+		{
+			isWhitePlayerWin = false;
+		}
 }
