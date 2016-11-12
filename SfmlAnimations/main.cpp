@@ -1,8 +1,12 @@
 //main.cpp - Entery point to the aplication
-//
+// 
+#define _USE_MATH_DEFINES
 #include "stdafx.h"
 #include "Consts.h"
+#include <math.h>
 #include "Animations.h"
+
+
 
 unsigned int currAnimation = 0;
 
@@ -26,7 +30,7 @@ void initializeBlocks(Blocks &blocks)
 		blocks.rectangles[i].setSize(blocks.currSize);
 		blocks.rectangles[i].setFillColor(blocks.currColor);
 		blocks.rectangles[i].setOrigin(SQUARE_WIDTH / 2, SQUARE_HEIGHT / 2);
-		blocks.rectangles[i].setPosition(START_LEFT_POSITION + blocks.rectangles[i].getOrigin().x, ((SQUARE_HEIGHT + DISTANCE_BETWEN_SQUAERS) * i) + START_TOP_POSITION + blocks.rectangles[i].getOrigin().y);
+		blocks.rectangles[i].setPosition(START_LEFT_POSITION + blocks.rectangles[i].getOrigin().x, ((SQUARE_HEIGHT + DISTANCE_BETWEN_SQUARES) * i) + START_TOP_POSITION + blocks.rectangles[i].getOrigin().y);
 	}
 }
 
@@ -40,7 +44,7 @@ void drawRectangles(RenderWindow &window, RectangleShape *rectangles)
 
 float degreesToRads(float degrees)
 {
-	return degrees * PI / 180;
+	return degrees * M_PI / 180;
 } 
 
 void rotateBlocksASync(Blocks &blocks)
@@ -50,14 +54,12 @@ void rotateBlocksASync(Blocks &blocks)
 		if (blocks.currRotation > ANIMATIONS[currAnimation]["ROTATION"]["TO"])
 		{
 			blocks.currRotation -= SPEED_ROTATION;
-
-			std::cout << "currRotation = " << blocks.currRotation << endl;
+			 
 		}
 		else if (blocks.currRotation < ANIMATIONS[currAnimation]["ROTATION"]["TO"])
 		{
 			blocks.currRotation += SPEED_ROTATION;
-
-			std::cout << "currRotation = " << blocks.currRotation << endl;
+			 
 		}
 		int middleSquare = AMOUNT_OF_RECTANGLES / 2 - 1;
 		for (int i = 0; i < AMOUNT_OF_RECTANGLES; i++)
@@ -74,11 +76,6 @@ void rotateBlocksASync(Blocks &blocks)
 			else
 				blocks.rectangles[i].setRotation(blocks.currRotation);
 		}
-		if (blocks.currRotation == ANIMATIONS[currAnimation]["ROTATION"]["TO"])
-		{
-			std::cout << "block 1 = " << blocks.rectangles[0].getPosition().x << ", " << blocks.rectangles[0].getPosition().y << endl;
-			std::cout << "block 1 = " << blocks.rectangles[1].getPosition().x << ", " << blocks.rectangles[1].getPosition().y << endl;
-		}
 	} 
 	
 }
@@ -94,8 +91,8 @@ void reMoveBlocksAndReColor(Blocks &blocks)
 {
 	for (int i = 0; i < AMOUNT_OF_RECTANGLES; ++i)
 	{
-		blocks.rectangles[i].setPosition(blocks.rectangles[i].getPosition().x + (ANIMATIONS[currAnimation]["DISTANCE"]["TO"])  + ANIMATIONS[currAnimation]["SPEED"]["X"],
-			blocks.rectangles[i].getPosition().y + (i*ANIMATIONS[currAnimation]["DISTANCE"]["TO"]) + ANIMATIONS[currAnimation]["SPEED"]["Y"]);
+		blocks.rectangles[i].setPosition(blocks.rectangles[i].getPosition().x + (i * ANIMATIONS[currAnimation]["DISTANCE"]["TO"])  + ANIMATIONS[currAnimation]["SPEED"]["X"],
+			blocks.rectangles[i].getPosition().y + (i * ANIMATIONS[currAnimation]["DISTANCE"]["TO"]) + ANIMATIONS[currAnimation]["SPEED"]["Y"]);
 		blocks.rectangles[i].setFillColor(blocks.currColor);
 	}
 }
@@ -122,11 +119,11 @@ void updateBlocksColors(Blocks &blocks)
 void UpdateSquareWidth(float &squareWidth)
 {
 	if (squareWidth < ANIMATIONS[currAnimation]["WIDTH"]["TO"])
-	{
+	{ 
 		squareWidth += SPEED_SIZE;
 	}
 	else if (squareWidth > ANIMATIONS[currAnimation]["WIDTH"]["TO"])
-	{
+	{ 
 		squareWidth -= SPEED_SIZE;
 	}
 }
@@ -143,20 +140,20 @@ void UpdateSquareHeight(float &squareHeight)
 	}
 }
 
-void updateBlocksSize(Blocks &blocks, Vector2f blockSize)
+void updateBlocksSize(Blocks &blocks, Vector2f &blockSize)
 {
 	if (blockSize.x != ANIMATIONS[currAnimation]["WIDTH"]["TO"] || blockSize.y != ANIMATIONS[currAnimation]["HEIGHT"]["TO"])
-	{
-		for (int i = 0; i < AMOUNT_OF_RECTANGLES; ++i)
-		{
-			UpdateSquareWidth(blockSize.x);
-			UpdateSquareHeight(blockSize.y); 
-
-			blocks.rectangles[i].setPosition(blocks.rectangles[i].getPosition().x,
-				((blocks.currSize.y + AMOUNT_OF_RECTANGLES) * i)+ blocks.rectangles[0].getPosition().y);
-			blocks.rectangles[i].setSize(blockSize);
+	{  
+			for (int i = 0; i < AMOUNT_OF_RECTANGLES; ++i)	
+			{
+				UpdateSquareWidth(blockSize.x);
+				UpdateSquareHeight(blockSize.y); 
+	
+				blocks.rectangles[i].setPosition(blocks.rectangles[i].getPosition().x,
+					((blocks.currSize.y + DISTANCE_BETWEN_SQUARES + ANIMATIONS[currAnimation]["DISTANCE"]["TO"])) * i + blocks.rectangles[0].getPosition().y);
+				blocks.rectangles[i].setSize(blockSize);
+			} 
 		}
-	}
 }
 
 void updateBlocks(Blocks &blocks)
@@ -164,10 +161,7 @@ void updateBlocks(Blocks &blocks)
 	updateBlocksColors(blocks);
 	rotateBlocksASync(blocks);
 	updateBlocksSize(blocks, blocks.currSize);
-	reMoveBlocksAndReColor(blocks);
-	/*rotateBlocks(blocks);
-	refreshBlocksSize(blocks, blocks.currentSize);
-	moveBlocks(blocks);*/
+	reMoveBlocksAndReColor(blocks); 
 }
 
 bool doBlocksMeetAWall(Blocks blocks)
@@ -221,8 +215,7 @@ int main()
 {
 	ContextSettings settings;
 	settings.antialiasingLevel = 8;
-
-	// Create the window of the application
+	 
 	RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Sfml Animation", Style::Close, settings);
 
 
